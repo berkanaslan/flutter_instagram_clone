@@ -14,7 +14,13 @@ class App extends StatelessWidget {
       child: Builder(
         builder: (context) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             onGenerateRoute: NavigationProvider.of(context).onGenerateRoute,
+            theme: ThemeData(
+              primaryColor: Colors.white,
+              accentColor: Colors.black,
+              scaffoldBackgroundColor: Colors.white,
+            ),
           );
         },
       ),

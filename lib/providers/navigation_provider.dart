@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/models/screen.dart';
-import 'package:flutter_instagram_clone/screens/first_screen.dart';
+import 'package:flutter_instagram_clone/screens/home_screen.dart';
 import 'package:flutter_instagram_clone/screens/fourth_screen.dart';
 import 'package:flutter_instagram_clone/screens/root.dart';
 import 'package:flutter_instagram_clone/screens/screens_of_first/pushed_screen.dart';
@@ -14,7 +14,8 @@ import 'package:provider/provider.dart';
 const HOME_SCREEN = 0;
 const EXPLORE_SCREEN = 1;
 const NEW_POST_SCREEN = 2;
-const PROFILE_SCREEN = 3;
+const ACTIVITY_SCREEN = 3;
+const PROFILE_SCREEN = 4;
 
 class NavigationProvider extends ChangeNotifier {
   /// [NavigationProvider] edinmek için shortcode
@@ -41,7 +42,7 @@ class NavigationProvider extends ChangeNotifier {
   final Map<int, Screen> _screens = {
     HOME_SCREEN: Screen(
       title: 'Home',
-      icon: Icons.home,
+      icon: Icons.home_outlined,
       child: FirstScreen(),
       initialRoute: FirstScreen.route,
       navigatorState: GlobalKey<NavigatorState>(),
@@ -73,7 +74,7 @@ class NavigationProvider extends ChangeNotifier {
     ),
     NEW_POST_SCREEN: Screen(
       title: 'Third',
-      icon: Icons.favorite,
+      icon: Icons.add_box_outlined,
       child: ThirdScreen(),
       initialRoute: ThirdScreen.route,
       navigatorState: GlobalKey<NavigatorState>(),
@@ -86,9 +87,24 @@ class NavigationProvider extends ChangeNotifier {
       },
       scrollController: ScrollController(),
     ),
+    ACTIVITY_SCREEN: Screen(
+      title: 'Fourth',
+      icon: Icons.favorite_border_outlined,
+      child: SecondScreen(),
+      initialRoute: SecondScreen.route,
+      navigatorState: GlobalKey<NavigatorState>(),
+      onGenerateRoute: (settings) {
+        print('Oluşturulan route: ${settings.name}');
+        switch (settings.name) {
+          default:
+            return MaterialPageRoute(builder: (_) => SecondScreen());
+        }
+      },
+      scrollController: ScrollController(),
+    ),
     PROFILE_SCREEN: Screen(
       title: 'Fourth',
-      icon: Icons.message,
+      icon: Icons.person_outline,
       child: FourthScreen(),
       initialRoute: FourthScreen.route,
       navigatorState: GlobalKey<NavigatorState>(),
