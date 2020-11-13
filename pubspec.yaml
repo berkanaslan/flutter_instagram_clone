@@ -34,6 +34,7 @@ dependencies:
       url: git://github.com/berkanaslan/dot_navigation_bar.git
       ref: master
   google_fonts: ^1.1.1
+  frino_icons: ^1.0.1+4
 
 dev_dependencies:
   flutter_test:

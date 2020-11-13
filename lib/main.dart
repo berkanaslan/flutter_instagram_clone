@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_instagram_clone/providers/navigation_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(App());
+void main() {
+  runApp(App());
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: Colors.white));
+}
 
 class App extends StatelessWidget {
   @override

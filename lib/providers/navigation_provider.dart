@@ -8,6 +8,7 @@ import 'package:flutter_instagram_clone/screens/screens_of_fourth/simple_screen.
 import 'package:flutter_instagram_clone/screens/second_screen.dart';
 import 'package:flutter_instagram_clone/screens/third_screen.dart';
 import 'package:flutter_instagram_clone/widgets/exit_dialog.dart';
+import 'package:frino_icons/frino_icons.dart';
 import 'package:provider/provider.dart';
 
 
@@ -42,7 +43,7 @@ class NavigationProvider extends ChangeNotifier {
   final Map<int, Screen> _screens = {
     HOME_SCREEN: Screen(
       title: 'Home',
-      icon: Icons.home_outlined,
+      icon: FrinoIcons.f_home,
       child: FirstScreen(),
       initialRoute: FirstScreen.route,
       navigatorState: GlobalKey<NavigatorState>(),
@@ -59,7 +60,7 @@ class NavigationProvider extends ChangeNotifier {
     ),
     EXPLORE_SCREEN: Screen(
       title: 'Second',
-      icon: Icons.search,
+      icon: FrinoIcons.f_search,
       child: SecondScreen(),
       initialRoute: SecondScreen.route,
       navigatorState: GlobalKey<NavigatorState>(),
@@ -74,7 +75,7 @@ class NavigationProvider extends ChangeNotifier {
     ),
     NEW_POST_SCREEN: Screen(
       title: 'Third',
-      icon: Icons.add_box_outlined,
+      icon: FrinoIcons.f_arrow_up_circle,
       child: ThirdScreen(),
       initialRoute: ThirdScreen.route,
       navigatorState: GlobalKey<NavigatorState>(),
@@ -89,7 +90,7 @@ class NavigationProvider extends ChangeNotifier {
     ),
     ACTIVITY_SCREEN: Screen(
       title: 'Fourth',
-      icon: Icons.favorite_border_outlined,
+      icon: FrinoIcons.f_heart,
       child: SecondScreen(),
       initialRoute: SecondScreen.route,
       navigatorState: GlobalKey<NavigatorState>(),
@@ -104,7 +105,7 @@ class NavigationProvider extends ChangeNotifier {
     ),
     PROFILE_SCREEN: Screen(
       title: 'Fourth',
-      icon: Icons.person_outline,
+      icon: FrinoIcons.f_user,
       child: FourthScreen(),
       initialRoute: FourthScreen.route,
       navigatorState: GlobalKey<NavigatorState>(),

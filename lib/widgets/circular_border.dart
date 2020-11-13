@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/models/story.dart';
+import 'package:flutter_instagram_clone/widgets/profile_photo_widget.dart';
 import 'package:flutter_instagram_clone/widgets/story.dart';
 
 class StoryWidget extends StatefulWidget {
@@ -61,10 +62,7 @@ class _StoryWidgetState extends State<StoryWidget>
                   turns: reverse,
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
-                    child: CircleAvatar(
-                      radius: 24.0,
-                      backgroundImage: NetworkImage(widget._story.sharedImageUrl),
-                    ),
+                    child: ProfilePhotoWidget(48),
                   ),
                 ),
               ),

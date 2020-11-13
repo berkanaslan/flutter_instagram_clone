@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frino_icons/frino_icons.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -15,14 +16,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      titleSpacing: 0,
       title: this._title,
       elevation: 1,
-      leading: IconButton(icon: Icon(Icons.add), onPressed: () {}),
       actions: [
         this._isDisplayMessageIcon
             ? IconButton(
-                icon: Icon(Icons.message),
+                icon: Icon(FrinoIcons.f_chat),
                 onPressed: () {},
               )
             : Container(),
