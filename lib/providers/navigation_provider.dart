@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_instagram_clone/app/screens/fourth_screen.dart';
+import 'package:flutter_instagram_clone/app/screens/profile_screen.dart';
 import 'package:flutter_instagram_clone/app/screens/home_screen.dart';
 import 'package:flutter_instagram_clone/app/screens/root.dart';
 import 'package:flutter_instagram_clone/app/screens/second_screen.dart';

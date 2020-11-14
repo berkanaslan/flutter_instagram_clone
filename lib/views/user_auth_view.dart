@@ -5,13 +5,18 @@ import 'package:flutter_instagram_clone/repositories/auth_repository.dart';
 import 'package:flutter_instagram_clone/services/auth/auth_base.dart';
 
 enum ViewState { IDLE, BUSY }
+enum RegisterState { REGISTERED, NOT_REGISTERED }
 
 class UserAuthView with ChangeNotifier implements AuthBase {
   ViewState _state = ViewState.IDLE;
+  RegisterState _registerState = RegisterState.NOT_REGISTERED;
+
   Person _person;
   AuthRepository _authRepository = locator<AuthRepository>();
 
   ViewState get state => _state;
+
+  RegisterState get registerState => _registerState;
 
   Person get person => _person;
 
@@ -23,8 +28,23 @@ class UserAuthView with ChangeNotifier implements AuthBase {
     notifyListeners();
   }
 
+  set registerState(RegisterState value) {
+    _registerState = value;
+    notifyListeners();
+  }
+
   UserAuthView() {
     currentPerson();
+  }
+
+  bool buildFormType() {
+    if (registerState == RegisterState.NOT_REGISTERED) {
+      registerState = RegisterState.REGISTERED;
+      return true;
+    } else {
+      registerState = RegisterState.NOT_REGISTERED;
+      return false;
+    }
   }
 
   @override

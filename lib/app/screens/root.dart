@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 /// Navigation entry point for app.
 class Root extends StatelessWidget {
   static const route = '/';
-  bool isLogged = false;
 
   @override
   Widget build(BuildContext context) {
@@ -35,23 +34,35 @@ class Root extends StatelessWidget {
             )
             .toList();
 
-        if (_userAuthView.person == null) {
-          return SignInScreen();
-        } else {
-          return WillPopScope(
-            onWillPop: () async => provider.onWillPop(context),
-            child: Scaffold(
-              body: IndexedStack(
-                children: screens,
-                index: provider.currentTabIndex,
+        if (_userAuthView.state == ViewState.IDLE) {
+          if (_userAuthView.person == null) {
+            return SignInScreen();
+          } else {
+            return WillPopScope(
+              onWillPop: () async => provider.onWillPop(context),
+              child: Scaffold(
+                resizeToAvoidBottomInset: false,
+                body: IndexedStack(
+                  children: screens,
+                  index: provider.currentTabIndex,
+                ),
+                bottomNavigationBar: DotNavigationBar(
+                  margin: EdgeInsets.zero,
+                  items: bottomNavigationBarItems,
+                  currentIndex: provider.currentTabIndex,
+                  onTap: provider.setTab,
+                  dotIndicatorColor: Colors.black,
+                  selectedItemColor: Colors.black,
+                  unselectedItemColor: Colors.black,
+                ),
               ),
-              bottomNavigationBar: DotNavigationBar(
-                items: bottomNavigationBarItems,
-                currentIndex: provider.currentTabIndex,
-                onTap: provider.setTab,
-                dotIndicatorColor: Colors.black,
-                selectedItemColor: Colors.black,
-                unselectedItemColor: Colors.black,
+            );
+          }
+        } else {
+          return Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 1,
               ),
             ),
           );

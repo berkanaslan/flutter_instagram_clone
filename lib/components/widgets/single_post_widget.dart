@@ -13,7 +13,7 @@ class SinglePostWidget extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              ProfilePhotoWidget(36),
+              ProfilePhotoWidget(32),
               SizedBox(width: 5),
               Text(
                 "username",

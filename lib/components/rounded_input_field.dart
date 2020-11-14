@@ -8,6 +8,7 @@ class RoundedInputField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final Function onSaved;
   final String errorText;
+  final TextInputType textInputType;
 
   const RoundedInputField({
     Key key,
@@ -16,12 +17,14 @@ class RoundedInputField extends StatelessWidget {
     this.onChanged,
     this.onSaved,
     this.errorText,
+    this.textInputType,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextFormField(
+        keyboardType: textInputType,
         onSaved: onSaved,
         onChanged: onChanged,
         cursorColor: kPrimaryColor,

@@ -49,6 +49,7 @@ class AuthRepository implements AuthBase {
     } else {
       Person _person =
           await _firebaseAuthService.signInWithMailAndPass(mail, pass);
+
       return await _firestoreDBService.readUser(_person.userID);
     }
   }
