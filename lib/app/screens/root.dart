@@ -1,11 +1,13 @@
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_instagram_clone/app/sign_in/sign_in_page.dart';
 import 'package:flutter_instagram_clone/providers/navigation_provider.dart';
 import 'package:provider/provider.dart';
 
 /// Navigation entry point for app.
 class Root extends StatelessWidget {
   static const route = '/';
+  bool isLogged = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class Root extends StatelessWidget {
             )
             .toList();
 
-        return WillPopScope(
+        return !isLogged ? SignInScreen() : WillPopScope(
           onWillPop: () async => provider.onWillPop(context),
           child: Scaffold(
             body: IndexedStack(

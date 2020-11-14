@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/models/story.dart';
-import 'package:flutter_instagram_clone/screens/screens_of_first/pushed_screen.dart';
-import 'package:flutter_instagram_clone/widgets/custom_app_bar.dart';
-import 'package:flutter_instagram_clone/widgets/circular_border.dart';
-import 'package:flutter_instagram_clone/widgets/profile_photo_widget.dart';
-import 'package:flutter_instagram_clone/widgets/single_post_widget.dart';
+import 'package:flutter_instagram_clone/components/widgets/custom_app_bar.dart';
+import 'package:flutter_instagram_clone/components/widgets/circular_border.dart';
+import 'package:flutter_instagram_clone/components/widgets/single_post_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:frino_icons/frino_icons.dart';
 
-class FirstScreen extends StatelessWidget {
+class HomeScreen extends StatelessWidget {
   static const route = '/first';
 
   @override

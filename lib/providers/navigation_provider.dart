@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_instagram_clone/app/screens/fourth_screen.dart';
+import 'package:flutter_instagram_clone/app/screens/home_screen.dart';
+import 'package:flutter_instagram_clone/app/screens/root.dart';
+import 'package:flutter_instagram_clone/app/screens/second_screen.dart';
+import 'package:flutter_instagram_clone/app/screens/third_screen.dart';
 import 'package:flutter_instagram_clone/models/screen.dart';
-import 'package:flutter_instagram_clone/screens/home_screen.dart';
-import 'package:flutter_instagram_clone/screens/fourth_screen.dart';
-import 'package:flutter_instagram_clone/screens/root.dart';
-import 'package:flutter_instagram_clone/screens/screens_of_first/pushed_screen.dart';
-import 'package:flutter_instagram_clone/screens/screens_of_fourth/simple_screen.dart';
-import 'package:flutter_instagram_clone/screens/second_screen.dart';
-import 'package:flutter_instagram_clone/screens/third_screen.dart';
-import 'package:flutter_instagram_clone/widgets/exit_dialog.dart';
+import 'package:flutter_instagram_clone/components/widgets/exit_dialog.dart';
 import 'package:frino_icons/frino_icons.dart';
 import 'package:provider/provider.dart';
 
@@ -29,12 +27,7 @@ class NavigationProvider extends ChangeNotifier {
   int get currentTabIndex => _currentScreenIndex;
 
   Route<dynamic> onGenerateRoute(RouteSettings settings) {
-    print('Oluşturulan rota: ${settings.name}');
     switch (settings.name) {
-      case PushedScreen.route:
-        return MaterialPageRoute(builder: (_) => PushedScreen());
-      case SimpleScreen.route:
-        return MaterialPageRoute(builder: (_) => SimpleScreen());
       default:
         return MaterialPageRoute(builder: (_) => Root());
     }
@@ -44,16 +37,14 @@ class NavigationProvider extends ChangeNotifier {
     HOME_SCREEN: Screen(
       title: 'Home',
       icon: FrinoIcons.f_home,
-      child: FirstScreen(),
-      initialRoute: FirstScreen.route,
+      child: HomeScreen(),
+      initialRoute: HomeScreen.route,
       navigatorState: GlobalKey<NavigatorState>(),
       onGenerateRoute: (settings) {
-        print('Oluşturulan rota: ${settings.name}');
+
         switch (settings.name) {
-          case PushedScreen.route:
-            return MaterialPageRoute(builder: (_) => PushedScreen());
           default:
-            return MaterialPageRoute(builder: (_) => FirstScreen());
+            return MaterialPageRoute(builder: (_) => HomeScreen());
         }
       },
       scrollController: ScrollController(),
@@ -112,8 +103,6 @@ class NavigationProvider extends ChangeNotifier {
       onGenerateRoute: (settings) {
         print('Oluşturulan route: ${settings.name}');
         switch (settings.name) {
-          case SimpleScreen.route:
-            return MaterialPageRoute(builder: (_) => SimpleScreen());
           default:
             return MaterialPageRoute(builder: (_) => FourthScreen());
         }

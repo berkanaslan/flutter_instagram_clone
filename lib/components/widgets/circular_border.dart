@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/models/story.dart';
-import 'package:flutter_instagram_clone/widgets/profile_photo_widget.dart';
-import 'package:flutter_instagram_clone/widgets/story.dart';
+import 'package:flutter_instagram_clone/components/widgets/profile_photo_widget.dart';
+import 'package:flutter_instagram_clone/components/widgets/story.dart';
 
 class StoryWidget extends StatefulWidget {
   Story _story;
