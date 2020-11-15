@@ -3,6 +3,7 @@ import 'package:flutter_instagram_clone/models/story.dart';
 import 'package:flutter_instagram_clone/components/widgets/custom_app_bar.dart';
 import 'package:flutter_instagram_clone/components/widgets/circular_border.dart';
 import 'package:flutter_instagram_clone/components/widgets/single_post_widget.dart';
+import 'package:flutter_instagram_clone/providers/navigation_provider.dart';
 import 'package:frino_icons/frino_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 

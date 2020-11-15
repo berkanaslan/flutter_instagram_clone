@@ -131,8 +131,8 @@ class NavigationProvider extends ChangeNotifier {
         currentScreen.scrollController.hasClients) {
       currentScreen.scrollController.animateTo(
         0.0,
-        duration: const Duration(seconds: 1),
-        curve: Curves.easeInOut,
+        duration: const Duration(seconds: 2),
+        curve: Curves.ease,
       );
     }
   }
