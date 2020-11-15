@@ -5,6 +5,8 @@ class Person {
   final String userID;
   String mail;
   String userName;
+  String name;
+  String bio;
   String profilePhotoUrl;
   DateTime createdAt;
   DateTime updatedAt;
@@ -17,7 +19,10 @@ class Person {
       'userID': userID,
       'mail': mail,
       'userName': userName,
-      'profilePhotoUrl': profilePhotoUrl ?? 'https://firebasestorage.googleapis.com/v0/b/instagram-clone-from-berkan.appspot.com/o/global%2Fno-profile-photo.png?alt=media&token=eeda3d97-c0c7-4f21-ade3-21421959d4a8',
+      'name': name,
+      'bio': bio,
+      'profilePhotoUrl': profilePhotoUrl ??
+          'https://firebasestorage.googleapis.com/v0/b/instagram-clone-from-berkan.appspot.com/o/global%2Fno-profile-photo.png?alt=media&token=eeda3d97-c0c7-4f21-ade3-21421959d4a8',
       'createdAt': createdAt ?? FieldValue.serverTimestamp(),
       'updatedAt': updatedAt ?? FieldValue.serverTimestamp(),
       'level': level ?? 1,
@@ -28,6 +33,8 @@ class Person {
       : userID = map['userID'],
         mail = map['mail'],
         userName = map['userName'],
+        name = map['name'],
+        bio = map['bio'],
         profilePhotoUrl = map['profilePhotoUrl'],
         createdAt = (map['createdAt'] as Timestamp).toDate(),
         updatedAt = (map['updatedAt'] as Timestamp).toDate(),
@@ -35,6 +42,6 @@ class Person {
 
   @override
   String toString() {
-    return 'UserModel{userID: $userID, mail: $mail, userName: $userName, profilePhotoUrl: $profilePhotoUrl, createdAt: $createdAt, updatedAt: $updatedAt, level: $level}';
+    return 'UserModel{userID: $userID, mail: $mail, userName: $userName, name: $name, bio: $bio, profilePhotoUrl: $profilePhotoUrl, createdAt: $createdAt, updatedAt: $updatedAt, level: $level}';
   }
 }

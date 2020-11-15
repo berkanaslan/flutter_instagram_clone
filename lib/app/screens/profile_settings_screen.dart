@@ -12,6 +12,7 @@ class ProfileSettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _userAuthView = Provider.of<UserAuthView>(context, listen: true);
 
     return Scaffold(
         resizeToAvoidBottomPadding: false,
@@ -25,8 +26,11 @@ class ProfileSettingsScreen extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+
             children: [
-              Center(child: ProfilePhotoWidget(128, "https://firebasestorage.googleapis.com/v0/b/instagram-clone-from-berkan.appspot.com/o/global%2Fno-profile-photo.png?alt=media&token=eeda3d97-c0c7-4f21-ade3-21421959d4a8")),
+              Center(
+                  child: ProfilePhotoWidget(
+                      128, _userAuthView.person.profilePhotoUrl)),
               FlatButton(
                 onPressed: () {},
                 child: Text(
@@ -34,17 +38,47 @@ class ProfileSettingsScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 18),
                 ),
               ),
-              RoundedInputField(
-                icon: FrinoIcons.f_rename,
-                hintText: "Adınız",
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text("Adı"),
+                  ),
+                  RoundedInputField(
+                    icon: FrinoIcons.f_rename,
+                    hintText: "Ad",
+                    initialValue: _userAuthView.person.name,
+                  ),
+                ],
               ),
-              RoundedInputField(
-                icon: FrinoIcons.f_user,
-                hintText: "Kullanıcı adınız",
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text("Kullanıcı adı"),
+                  ),
+                  RoundedInputField(
+                    icon: FrinoIcons.f_rename,
+                    hintText: "Kullanıcı adı",
+                    initialValue: _userAuthView.person.userName,
+                  ),
+                ],
               ),
-              RoundedInputField(
-                icon: FrinoIcons.f_book,
-                hintText: "Biografi",
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text("Biografi"),
+                  ),
+                  RoundedInputField(
+                    icon: FrinoIcons.f_rename,
+                    hintText: "Biografi",
+                    initialValue: _userAuthView.person.bio,
+                  ),
+                ],
               ),
               RoundedButton(
                 text: "Kaydet",
