@@ -18,20 +18,21 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
   String _mail, _pass, _userName;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     final _userAuthView = Provider.of<UserAuthView>(context, listen: true);
 
     return Scaffold(
-      appBar: AppBar(elevation: 0),
-      resizeToAvoidBottomPadding: false,
-      body: _userAuthView.state == ViewState.IDLE
-          ? _userAuthView.registerState == RegisterState.REGISTERED
-              ? getSignInForm(_userAuthView, context)
-              : getSignUpForm(_userAuthView, context)
-          : getCircularProgressIndicator(),
-    );
+        key: _scaffoldKey,
+        appBar: AppBar(elevation: 0),
+        resizeToAvoidBottomPadding: false,
+        body: _userAuthView.state == ViewState.BUSY
+            ? getCircularProgressIndicator()
+            : _userAuthView.registerState == RegisterState.REGISTERED
+                ? getSignInForm(_userAuthView, context)
+                : getSignUpForm(_userAuthView, context));
   }
 
   Widget getSignUpForm(UserAuthView _userAuthView, BuildContext context) {
@@ -156,8 +157,12 @@ class _SignInScreenState extends State<SignInScreen> {
         if (_person != null) {
           print("Oturum açan kullanıcı ID: " + _person.userID.toString());
         }
-      } on FirebaseException catch (e) {
-        debugPrint("Giriş yaparken: " + e.code);
+      } catch (e) {
+        final snackBar = SnackBar(
+          content: Text(e.toString()),
+          duration: Duration(seconds: 2),
+        );
+        _scaffoldKey.currentState.showSnackBar(snackBar);
       }
     } else {
       setState(() {});
@@ -167,18 +172,21 @@ class _SignInScreenState extends State<SignInScreen> {
       try {
         Person _person =
             await _userAuthView.createWithMailAndPass(_mail, _pass, _userName);
-        if (_person != null) {
-          print("Oturum açan kullanıcı ID: " + _person.userID.toString());
-        }
-      } on FirebaseException catch (e) {
-        debugPrint("Kayıt olurken hata: " + e.code);
+      } catch (e) {
+        final snackBar = SnackBar(
+          content: Text(e.toString()),
+          duration: Duration(seconds: 2),
+        );
+        _scaffoldKey.currentState.showSnackBar(snackBar);
       }
     }
   }
 
   Widget getCircularProgressIndicator() {
     return Center(
-      child: CircularProgressIndicator(),
+      child: CircularProgressIndicator(
+        strokeWidth: 1,
+      ),
     );
   }
 }

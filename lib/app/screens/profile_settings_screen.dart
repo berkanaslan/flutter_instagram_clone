@@ -30,13 +30,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
     return Scaffold(
         key: _scaffoldKey,
         resizeToAvoidBottomPadding: false,
-        appBar: CustomAppBar(
-            Text("Profil Ayarları"),
-            IconButton(
-              icon: Icon(FrinoIcons.f_login),
-              onPressed: () => _signOut(),
-            ),
-            0),
+        appBar: CustomAppBar(Text("Profil Ayarları"), Container(), 0),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Form(
@@ -80,7 +74,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                       child: Text("Kullanıcı adı"),
                     ),
                     RoundedInputField(
-                      icon: FrinoIcons.f_rename,
+                      icon: FrinoIcons.f_user,
                       initialValue: _userAuthView.person.userName,
                       hintText: _userAuthView.person.userName,
                       onSaved: (String input) {
@@ -97,7 +91,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                       child: Text("Biografi"),
                     ),
                     RoundedInputField(
-                      icon: FrinoIcons.f_rename,
+                      icon: FrinoIcons.f_book,
                       initialValue: _userAuthView.person.bio,
                       hintText: _userAuthView.person.bio != null
                           ? _userAuthView.person.bio
@@ -123,11 +117,6 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
         ));
   }
 
-  _signOut() {
-    final _userAuthView = Provider.of<UserAuthView>(context, listen: false);
-    _userAuthView.signOut();
-  }
-
   void _updateUserDetails() async {
     _formKey.currentState.save();
     final _userAuthView = Provider.of<UserAuthView>(context, listen: false);
@@ -150,27 +139,27 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
           _userAuthView.person.userID, _name.trim(), _bio.trim());
 
       if (result) {
+        _userAuthView.person.bio = _bio;
+        _userAuthView.person.name = _name;
         final snackBar = SnackBar(
           content: Text("Başarılı, bilgiler güncellendi."),
           duration: Duration(seconds: 2),
         );
         _scaffoldKey.currentState.showSnackBar(snackBar);
-        _userAuthView.person.bio = _bio;
-        _userAuthView.person.name = _name;
       }
     } else {
       var result = await _userAuthView.updateProfileDetails(
           _userAuthView.person.userID, _name.trim(), _userName.trim(), _bio);
 
       if (result) {
+        _userAuthView.person.userName = _userName;
+        _userAuthView.person.bio = _bio;
+        _userAuthView.person.name = _name;
         final snackBar = SnackBar(
           content: Text("Başarılı, bilgiler güncellendi."),
           duration: Duration(seconds: 2),
         );
         _scaffoldKey.currentState.showSnackBar(snackBar);
-        _userAuthView.person.userName = _userName;
-        _userAuthView.person.bio = _bio;
-        _userAuthView.person.name = _name;
       } else {
         final snackBar = SnackBar(
           content: Text("Lütfen kullanılmayan bir kullanıcı adı seçin."),

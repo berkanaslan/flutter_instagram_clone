@@ -31,15 +31,9 @@ class FirebaseAuthService implements AuthBase {
   @override
   Future<Person> createWithMailAndPass(
       String mail, String pass, String userName) async {
-    bool alreadyUsingUserName =
-        await _firestoreDBService.checkUserName(userName);
-    if (alreadyUsingUserName) {
-      return Person(userID: "ALREADYUSED", mail: null);
-    } else {
-      UserCredential userCredential = await _firebaseAuth
-          .createUserWithEmailAndPassword(email: mail, password: pass);
-      return _userFromFirebase(userCredential.user);
-    }
+    UserCredential userCredential = await _firebaseAuth
+        .createUserWithEmailAndPassword(email: mail, password: pass);
+    return _userFromFirebase(userCredential.user);
   }
 
   @override

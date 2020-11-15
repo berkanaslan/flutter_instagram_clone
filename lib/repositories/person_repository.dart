@@ -7,7 +7,7 @@ import 'package:flutter_instagram_clone/services/db/firestore_db_service.dart';
 
 enum ServiceMode { FIREBASE, OTHERS }
 
-class PersonRepository implements AuthBase {
+class PersonRepository implements AuthBase, Exception {
   FirebaseAuthService _firebaseAuthService = locator<FirebaseAuthService>();
   FirestoreDBService _firestoreDBService = locator<FirestoreDBService>();
 
@@ -32,13 +32,18 @@ class PersonRepository implements AuthBase {
     if (serviceMode == ServiceMode.OTHERS) {
       return null;
     } else {
-      Person _person = await _firebaseAuthService.createWithMailAndPass(
-          mail, pass, userName);
-      bool _result = await _firestoreDBService.saveUser(_person, userName);
-      if (_result) {
-        return await _firestoreDBService.readUser(_person.userID);
+      bool checkUserName = await _firestoreDBService.checkUserName(userName);
+      if (checkUserName) {
+        throw "Bu Kullanıcı adı kullanılıyor.";
       } else {
-        return null;
+        Person _person = await _firebaseAuthService.createWithMailAndPass(
+            mail, pass, userName);
+        bool _result = await _firestoreDBService.saveUser(_person, userName);
+        if (_result) {
+          return await _firestoreDBService.readUser(_person.userID);
+        } else {
+          return null;
+        }
       }
     }
   }

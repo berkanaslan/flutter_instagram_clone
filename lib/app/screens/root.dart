@@ -34,35 +34,25 @@ class Root extends StatelessWidget {
             )
             .toList();
 
-        if (_userAuthView.state == ViewState.IDLE) {
-          if (_userAuthView.person == null) {
-            return SignInScreen();
-          } else {
-            return WillPopScope(
-              onWillPop: () async => provider.onWillPop(context),
-              child: Scaffold(
-                resizeToAvoidBottomInset: false,
-                body: IndexedStack(
-                  children: screens,
-                  index: provider.currentTabIndex,
-                ),
-                bottomNavigationBar: DotNavigationBar(
-                  margin: EdgeInsets.zero,
-                  items: bottomNavigationBarItems,
-                  currentIndex: provider.currentTabIndex,
-                  onTap: provider.setTab,
-                  dotIndicatorColor: Colors.black,
-                  selectedItemColor: Colors.black,
-                  unselectedItemColor: Colors.black,
-                ),
-              ),
-            );
-          }
+        if (_userAuthView.person == null) {
+          return SignInScreen();
         } else {
-          return Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(
-                strokeWidth: 1,
+          return WillPopScope(
+            onWillPop: () async => provider.onWillPop(context),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              body: IndexedStack(
+                children: screens,
+                index: provider.currentTabIndex,
+              ),
+              bottomNavigationBar: DotNavigationBar(
+                margin: EdgeInsets.zero,
+                items: bottomNavigationBarItems,
+                currentIndex: provider.currentTabIndex,
+                onTap: provider.setTab,
+                dotIndicatorColor: Colors.black,
+                selectedItemColor: Colors.black,
+                unselectedItemColor: Colors.black,
               ),
             ),
           );

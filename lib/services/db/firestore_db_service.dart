@@ -22,11 +22,7 @@ class FirestoreDBService implements DBBase {
         .where('userName', isEqualTo: userName)
         .get();
 
-    if (otherUserNames.docs.isNotEmpty) {
-      return false;
-    } else {
-      return true;
-    }
+    return otherUserNames.docs.isNotEmpty;
   }
 
   @override
@@ -39,7 +35,8 @@ class FirestoreDBService implements DBBase {
   @override
   Future<bool> updateProfileDetails(
       String userID, String name, String userName, String bio) async {
-    if (await checkUserName(userName)) {
+    bool check = await checkUserName(userName);
+    if (check) {
       return false;
     } else {
       await _firestore
