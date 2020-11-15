@@ -62,7 +62,7 @@ class _StoryWidgetState extends State<StoryWidget>
                   turns: reverse,
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
-                    child: ProfilePhotoWidget(48),
+                    child: ProfilePhotoWidget(48, "https://firebasestorage.googleapis.com/v0/b/instagram-clone-from-berkan.appspot.com/o/global%2Fno-profile-photo.png?alt=media&token=eeda3d97-c0c7-4f21-ade3-21421959d4a8"),
                   ),
                 ),
               ),

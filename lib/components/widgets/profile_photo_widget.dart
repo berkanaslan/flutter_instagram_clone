@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class ProfilePhotoWidget extends StatelessWidget {
   double _imgSize;
+  String _imgUrl;
 
-  ProfilePhotoWidget(this._imgSize);
+  ProfilePhotoWidget(this._imgSize, this._imgUrl);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class ProfilePhotoWidget extends StatelessWidget {
       height: this._imgSize,
       width: this._imgSize,
       child: CircleAvatar(
-        backgroundImage: NetworkImage("https://source.unsplash.com/300x300"),
+        backgroundImage: NetworkImage(this._imgUrl),
       ),
     );
   }

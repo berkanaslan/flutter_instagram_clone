@@ -20,6 +20,7 @@ class HomeScreen extends StatelessWidget {
           icon: Icon(FrinoIcons.f_chat),
           onPressed: () {},
         ),
+        1,
       ),
       body: Column(
         children: <Widget>[

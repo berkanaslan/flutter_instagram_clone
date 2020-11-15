@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/app/screens/profile_screen.dart';
 import 'package:flutter_instagram_clone/app/screens/home_screen.dart';
+import 'package:flutter_instagram_clone/app/screens/profile_settings_screen.dart';
 import 'package:flutter_instagram_clone/app/screens/root.dart';
 import 'package:flutter_instagram_clone/app/screens/second_screen.dart';
 import 'package:flutter_instagram_clone/app/screens/third_screen.dart';
@@ -8,7 +9,6 @@ import 'package:flutter_instagram_clone/models/screen.dart';
 import 'package:flutter_instagram_clone/components/widgets/exit_dialog.dart';
 import 'package:frino_icons/frino_icons.dart';
 import 'package:provider/provider.dart';
-
 
 const HOME_SCREEN = 0;
 const EXPLORE_SCREEN = 1;
@@ -21,13 +21,14 @@ class NavigationProvider extends ChangeNotifier {
   static NavigationProvider of(BuildContext context) =>
       Provider.of<NavigationProvider>(context, listen: false);
 
-  // Açılış sayfası
   int _currentScreenIndex = HOME_SCREEN;
 
   int get currentTabIndex => _currentScreenIndex;
 
   Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case ProfileSettingsScreen.route:
+        return MaterialPageRoute(builder: (_) => ProfileSettingsScreen());
       default:
         return MaterialPageRoute(builder: (_) => Root());
     }
@@ -41,7 +42,6 @@ class NavigationProvider extends ChangeNotifier {
       initialRoute: HomeScreen.route,
       navigatorState: GlobalKey<NavigatorState>(),
       onGenerateRoute: (settings) {
-
         switch (settings.name) {
           default:
             return MaterialPageRoute(builder: (_) => HomeScreen());
@@ -95,7 +95,7 @@ class NavigationProvider extends ChangeNotifier {
       scrollController: ScrollController(),
     ),
     PROFILE_SCREEN: Screen(
-      title: 'Fourth',
+      title: 'Profile',
       icon: FrinoIcons.f_user,
       child: FourthScreen(),
       initialRoute: FourthScreen.route,
@@ -103,6 +103,8 @@ class NavigationProvider extends ChangeNotifier {
       onGenerateRoute: (settings) {
         print('Oluşturulan route: ${settings.name}');
         switch (settings.name) {
+          case ProfileSettingsScreen.route:
+            return MaterialPageRoute(builder: (_) => ProfileSettingsScreen());
           default:
             return MaterialPageRoute(builder: (_) => FourthScreen());
         }

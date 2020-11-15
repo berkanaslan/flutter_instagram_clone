@@ -6,17 +6,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   Widget _title;
   Widget _action;
+  double _elevation;
 
-  CustomAppBar(Widget title, Widget action) {
-    this._title = title;
-    this._action = action;
-  }
+  CustomAppBar(this._title, this._action, this._elevation);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: this._title,
-      elevation: 1,
+      elevation: this._elevation,
       actions: [this._action],
     );
   }

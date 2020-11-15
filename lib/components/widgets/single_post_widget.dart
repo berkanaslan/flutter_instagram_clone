@@ -13,7 +13,7 @@ class SinglePostWidget extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              ProfilePhotoWidget(32),
+              ProfilePhotoWidget(32, "https://firebasestorage.googleapis.com/v0/b/instagram-clone-from-berkan.appspot.com/o/global%2Fno-profile-photo.png?alt=media&token=eeda3d97-c0c7-4f21-ade3-21421959d4a8",),
               SizedBox(width: 5),
               Text(
                 "username",

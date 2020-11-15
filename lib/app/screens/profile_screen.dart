@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_instagram_clone/app/screens/profile_settings_screen.dart';
 import 'package:flutter_instagram_clone/components/profile_action_button.dart';
 import 'package:flutter_instagram_clone/components/widgets/custom_app_bar.dart';
 import 'package:flutter_instagram_clone/components/widgets/profile_photo_widget.dart';
@@ -12,19 +13,19 @@ import 'package:frino_icons/frino_icons.dart';
 import 'package:provider/provider.dart';
 
 class FourthScreen extends StatelessWidget {
-  static const route = '/extra';
+  static const route = '/profile';
   List<Widget> _randomChildren;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        Text("Profil"),
-        IconButton(
-          icon: Icon(FrinoIcons.f_login),
-          onPressed: () => _signOut(context),
-        ),
-      ),
+          Text("Profil"),
+          IconButton(
+            icon: Icon(FrinoIcons.f_login),
+            onPressed: () => _signOut(context),
+          ),
+          0),
       body: DefaultTabController(
         length: 2,
         child: NestedScrollView(
@@ -67,8 +68,13 @@ class FourthScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ProfileActionButton(
-                      onPressed: () {},
                       buttonText: "Profili Düzenle",
+                      onPressed: () {
+                        Navigator.of(
+                          context,
+                          rootNavigator: true,
+                        ).pushNamed(ProfileSettingsScreen.route);
+                      },
                     ),
                   ),
                 ]),
@@ -104,7 +110,8 @@ class FourthScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        ProfilePhotoWidget(96),
+        ProfilePhotoWidget(96,
+        "https://firebasestorage.googleapis.com/v0/b/instagram-clone-from-berkan.appspot.com/o/global%2Fno-profile-photo.png?alt=media&token=eeda3d97-c0c7-4f21-ade3-21421959d4a8"),
         Column(
           children: [
             Text(

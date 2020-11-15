@@ -17,7 +17,7 @@ class Person {
       'userID': userID,
       'mail': mail,
       'userName': userName,
-      'profilePhotoUrl': profilePhotoUrl ?? 'assets/imgs/instagram.png',
+      'profilePhotoUrl': profilePhotoUrl ?? 'https://firebasestorage.googleapis.com/v0/b/instagram-clone-from-berkan.appspot.com/o/global%2Fno-profile-photo.png?alt=media&token=eeda3d97-c0c7-4f21-ade3-21421959d4a8',
       'createdAt': createdAt ?? FieldValue.serverTimestamp(),
       'updatedAt': updatedAt ?? FieldValue.serverTimestamp(),
       'level': level ?? 1,
