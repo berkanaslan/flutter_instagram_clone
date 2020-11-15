@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/locator.dart';
 import 'package:flutter_instagram_clone/models/person.dart';
-import 'package:flutter_instagram_clone/repositories/auth_repository.dart';
+import 'package:flutter_instagram_clone/repositories/person_repository.dart';
 import 'package:flutter_instagram_clone/services/auth/auth_base.dart';
 
 enum ViewState { IDLE, BUSY }
@@ -12,7 +12,7 @@ class UserAuthView with ChangeNotifier implements AuthBase {
   RegisterState _registerState = RegisterState.NOT_REGISTERED;
 
   Person _person;
-  AuthRepository _authRepository = locator<AuthRepository>();
+  PersonRepository _authRepository = locator<PersonRepository>();
 
   ViewState get state => _state;
 
@@ -129,5 +129,40 @@ class UserAuthView with ChangeNotifier implements AuthBase {
     }
 
     return result;
+  }
+
+  Future<bool> updateProfileDetails(
+      String userID, String name, String userName, String bio) async {
+    try {
+      state = ViewState.BUSY;
+      bool result = await _authRepository.updateProfileDetails(
+          userID, name, userName, bio);
+      return result;
+    } finally {
+      state = ViewState.IDLE;
+    }
+  }
+
+  Future<bool> updateProfileDetailsWithoutUserName(
+      String userID, String name, String bio) async {
+    try {
+      state = ViewState.BUSY;
+      bool result = await _authRepository.updateProfileDetailsWithoutUserName(
+          userID, name, bio);
+      return result;
+    } finally {
+      state = ViewState.IDLE;
+    }
+  }
+
+  Future<bool> updateProfilePhoto(String userID, String profilePhotoUrl) async {
+    try {
+      state = ViewState.BUSY;
+      bool result =
+          await _authRepository.updateProfilePhoto(userID, profilePhotoUrl);
+      return result;
+    } finally {
+      state = ViewState.IDLE;
+    }
   }
 }

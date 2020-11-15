@@ -2,11 +2,12 @@ import 'package:flutter_instagram_clone/locator.dart';
 import 'package:flutter_instagram_clone/models/person.dart';
 import 'package:flutter_instagram_clone/services/auth/auth_base.dart';
 import 'package:flutter_instagram_clone/services/auth/firebase_auth_service.dart';
+import 'package:flutter_instagram_clone/services/db/db_base.dart';
 import 'package:flutter_instagram_clone/services/db/firestore_db_service.dart';
 
 enum ServiceMode { FIREBASE, OTHERS }
 
-class AuthRepository implements AuthBase {
+class PersonRepository implements AuthBase {
   FirebaseAuthService _firebaseAuthService = locator<FirebaseAuthService>();
   FirestoreDBService _firestoreDBService = locator<FirestoreDBService>();
 
@@ -60,6 +61,35 @@ class AuthRepository implements AuthBase {
       return null;
     } else {
       return await _firebaseAuthService.signOut();
+    }
+  }
+
+  Future<bool> updateProfileDetails(
+      String userID, String name, String userName, String bio) async {
+    if (serviceMode == ServiceMode.OTHERS) {
+      return null;
+    } else {
+      return await _firestoreDBService.updateProfileDetails(
+          userID, name, userName, bio);
+    }
+  }
+
+  Future<bool> updateProfileDetailsWithoutUserName(
+      String userID, String name, String bio) async {
+    if (serviceMode == ServiceMode.OTHERS) {
+      return null;
+    } else {
+      return await _firestoreDBService.updateProfileDetailsWithoutUserName(
+          userID, name, bio);
+    }
+  }
+
+  Future<bool> updateProfilePhoto(String userID, String profilePhotoUrl) async {
+    if (serviceMode == ServiceMode.OTHERS) {
+      return null;
+    } else {
+      return await _firestoreDBService.updateProfilePhoto(
+          userID, profilePhotoUrl);
     }
   }
 }

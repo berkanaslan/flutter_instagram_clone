@@ -18,6 +18,8 @@ class FourthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _userAuthView = Provider.of<UserAuthView>(context, listen: true);
+
     return Scaffold(
       appBar: CustomAppBar(
           Text("Profil"),
