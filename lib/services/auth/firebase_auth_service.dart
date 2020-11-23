@@ -1,13 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_instagram_clone/locator.dart';
 import 'package:flutter_instagram_clone/models/person.dart';
 import 'package:flutter_instagram_clone/services/auth/auth_base.dart';
-import 'package:flutter_instagram_clone/services/db/firestore_db_service.dart';
 
 class FirebaseAuthService implements AuthBase {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  FirestoreDBService _firestoreDBService = locator<FirestoreDBService>();
 
   @override
   Future<Person> currentPerson() async {

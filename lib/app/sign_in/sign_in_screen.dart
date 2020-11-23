@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/components/already_have_an_account_acheck.dart';
 import 'package:flutter_instagram_clone/components/rounded_button.dart';

@@ -1,12 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/app/screens/profile_settings_screen.dart';
 import 'package:flutter_instagram_clone/components/profile_action_button.dart';
 import 'package:flutter_instagram_clone/components/widgets/custom_app_bar.dart';
 import 'package:flutter_instagram_clone/components/widgets/profile_photo_widget.dart';
 import 'package:flutter_instagram_clone/components/widgets/single_post_widget.dart';
-import 'package:flutter_instagram_clone/contants.dart';
 import 'package:flutter_instagram_clone/providers/navigation_provider.dart';
 import 'package:flutter_instagram_clone/views/user_auth_view.dart';
 import 'package:frino_icons/frino_icons.dart';
@@ -167,25 +164,6 @@ class FourthScreen extends StatelessWidget {
         );
       },
     );
-  }
-
-  List<Widget> _randomHeightWidgets(BuildContext context) {
-    double randHeight = Random().nextInt(100).toDouble();
-    _randomChildren ??= List.generate(3, (index) {
-      final height = randHeight.clamp(
-        50.0,
-        MediaQuery.of(context)
-            .size
-            .width, // simply using MediaQuery to demonstrate usage of context
-      );
-      return Container(
-        color: Colors.primaries[index],
-        height: height,
-        child: Text('Random Height Child ${index + 1}'),
-      );
-    });
-
-    return _randomChildren;
   }
 
   _signOut(BuildContext context) {

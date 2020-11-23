@@ -2,7 +2,6 @@ import 'package:flutter_instagram_clone/locator.dart';
 import 'package:flutter_instagram_clone/models/person.dart';
 import 'package:flutter_instagram_clone/services/auth/auth_base.dart';
 import 'package:flutter_instagram_clone/services/auth/firebase_auth_service.dart';
-import 'package:flutter_instagram_clone/services/db/db_base.dart';
 import 'package:flutter_instagram_clone/services/db/firestore_db_service.dart';
 
 enum ServiceMode { FIREBASE, OTHERS }
