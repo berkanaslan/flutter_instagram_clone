@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/components/rounded_button.dart';
 import 'package:flutter_instagram_clone/components/rounded_input_field.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_instagram_clone/components/widgets/custom_app_bar.dart';
 import 'package:flutter_instagram_clone/components/widgets/profile_photo_widget.dart';
 import 'package:flutter_instagram_clone/views/user_auth_view.dart';
 import 'package:frino_icons/frino_icons.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class ProfileSettingsScreen extends StatefulWidget {
@@ -18,6 +21,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   String _userName, _name, _bio;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
+  File _profilePhoto;
 
   @override
   void initState() {
@@ -37,11 +41,14 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
             key: _formKey,
             child: Column(
               children: [
-                Center(
-                    child: ProfilePhotoWidget(
-                        128, _userAuthView.person.profilePhotoUrl)),
+                GestureDetector(
+                  onTap: () => _showBottomSheet(context),
+                  child: Center(
+                      child: ProfilePhotoWidget(
+                          128, _userAuthView.person.profilePhotoUrl)),
+                ),
                 FlatButton(
-                  onPressed: () {},
+                  onPressed: () => _updateProfilePhoto(context),
                   child: Text(
                     "Profil Fotoğrafını Değiştir",
                     style: TextStyle(fontSize: 18),
@@ -88,7 +95,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
-                      child: Text("Biografi"),
+                      child: Text("Biyografi"),
                     ),
                     RoundedInputField(
                       icon: FrinoIcons.f_book,
@@ -106,9 +113,6 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                   text: "Kaydet",
                   press: () {
                     _updateUserDetails();
-                    debugPrint(_name);
-                    debugPrint(_userName);
-                    debugPrint(_bio);
                   },
                 ),
               ],
@@ -163,6 +167,78 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
       } else {
         final snackBar = SnackBar(
           content: Text("Lütfen kullanılmayan bir kullanıcı adı seçin."),
+          duration: Duration(seconds: 2),
+        );
+        _scaffoldKey.currentState.showSnackBar(snackBar);
+      }
+    }
+  }
+
+  _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      useRootNavigator: true,
+      context: context,
+      builder: (context) {
+        return Container(
+          height: (MediaQuery.of(context).size.height / 5) + 8,
+          child: Column(children: [
+            ListTile(
+              leading: CircleAvatar(
+                child: Icon(Icons.camera),
+              ),
+              title: Text("Kamera"),
+              subtitle: Text("Kamera ile yeni profil fotoğrafı edinin."),
+              onTap: () {
+                _newProfilePhotoFromCamera();
+                // After closing bottom sheet
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              leading: CircleAvatar(
+                child: Icon(Icons.photo),
+              ),
+              title: Text("Galeri"),
+              subtitle: Text("Galeriden yeni bir profil fotoğrafı seçin."),
+              onTap: () {
+                _newProfilePhotoFromGallery();
+                // After closing bottom sheet
+                Navigator.of(context).pop();
+              },
+            ),
+          ]),
+        );
+      },
+    );
+  }
+
+  void _newProfilePhotoFromCamera() async {
+    final image = await ImagePicker().getImage(source: ImageSource.camera);
+    if (image != null) {
+      setState(() {
+        _profilePhoto = File(image.path);
+      });
+    }
+  }
+
+  void _newProfilePhotoFromGallery() async {
+    final image = await ImagePicker().getImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _profilePhoto = File(image.path);
+      });
+    }
+  }
+
+  void _updateProfilePhoto(BuildContext context) async {
+    final _userAuthView = Provider.of<UserAuthView>(context, listen: false);
+    if (_profilePhoto != null) {
+      String url = await _userAuthView.updateProfilePhoto(
+          _userAuthView.person.userID, "profile_photo", _profilePhoto);
+
+      if (url != null) {
+        final snackBar = SnackBar(
+          content: Text("Profil fotoğrafı güncellendi."),
           duration: Duration(seconds: 2),
         );
         _scaffoldKey.currentState.showSnackBar(snackBar);

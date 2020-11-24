@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/locator.dart';
 import 'package:flutter_instagram_clone/models/person.dart';
 import 'package:flutter_instagram_clone/repositories/person_repository.dart';
+import 'package:flutter_instagram_clone/repositories/upload_repository.dart';
 import 'package:flutter_instagram_clone/services/auth/auth_base.dart';
 
 enum ViewState { IDLE, BUSY }
@@ -10,6 +13,7 @@ enum RegisterState { REGISTERED, NOT_REGISTERED }
 class UserAuthView with ChangeNotifier implements AuthBase {
   ViewState _state = ViewState.IDLE;
   RegisterState _registerState = RegisterState.NOT_REGISTERED;
+  UploadRepository _uploadRepository = locator<UploadRepository>();
 
   Person _person;
   PersonRepository _authRepository = locator<PersonRepository>();
@@ -155,12 +159,13 @@ class UserAuthView with ChangeNotifier implements AuthBase {
     }
   }
 
-  Future<bool> updateProfilePhoto(String userID, String profilePhotoUrl) async {
+  Future<String> updateProfilePhoto(String userID, String fileName, File file) async {
     try {
       state = ViewState.BUSY;
-      bool result =
-          await _authRepository.updateProfilePhoto(userID, profilePhotoUrl);
-      return result;
+      return await _uploadRepository.updateProfilePhoto(userID, fileName, file);
+    } catch (e) {
+      print("UploadView updateProfilePhoto() hatası: " + e.toString());
+      return null;
     } finally {
       state = ViewState.IDLE;
     }
